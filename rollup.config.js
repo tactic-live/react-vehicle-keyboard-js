@@ -14,15 +14,16 @@
  * limitations under the License.
  * =============================================================================
  */
-import babel from 'rollup-plugin-babel';
+import babel from 'rollup-plugin-babel'; // es6转es5
 import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import node from 'rollup-plugin-node-resolve';
-import sourcemaps from 'rollup-plugin-sourcemaps';
-import uglify from 'rollup-plugin-uglify';
+import sourcemaps from 'rollup-plugin-sourcemaps'; // 生成map文件
+import uglify from 'rollup-plugin-uglify'; // 压缩打包文件
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'; //peerdependence中依赖配置
 
 const copyright =
-  `// Land Group FE/react-vehicle-keyboard-js Copyright ${(new Date).getFullYear()} Land Group`;
+  `// Land Group FE/react-vehicle-keyboard Copyright ${(new Date).getFullYear()} Land Group`;
 
 function minify() {
   return uglify({
@@ -31,13 +32,19 @@ function minify() {
     }
   });
 }
+
 const babelOptions = {}
-function config({ plugins = [], output = {}, external = [] }) {
+
+function config({ input = '', plugins = [], output = {}, external = [] }) {
   return {
+    // 入口
     input: 'src/index.js',
+    // 插件
     plugins: [
+      // node_modules中的包大部分是commonjs格式的，要在rollup中使用必须先转为es6语法
       node(),
       // Polyfill require() from dependencies.
+      // 将非es6语法的包转为es6可用
       commonjs({
         ignore: ['crypto'],
         include: 'node_modules/**'
@@ -50,6 +57,7 @@ function config({ plugins = [], output = {}, external = [] }) {
         exclude: "node_modules/**",
         runtimeHelpers: true,
         "plugins": [
+          // 协助排除external的外部模块，不打包进库里
           "external-helpers"
         ],
         "presets": [
@@ -59,31 +67,38 @@ function config({ plugins = [], output = {}, external = [] }) {
               "modules": false
             }
           ],
+          "stage-0",
           "react"
         ]
       }),
       sourcemaps(),
+      peerDepsExternal({
+        includeDependencies: true,
+      }),
       ...plugins,
     ],
+    // 出口
     output: {
       banner: copyright,
+      // 设置全局变量
       globals: {
-        'node-fetch': 'nodeFetch',
         'react': 'React',
         'react-dom': 'ReactDom'
       },
       sourcemap: true,
       ...output,
     },
+    // 是否开启代码分割,用户定义多出口
+    experimentalCodeSplitting: false,
     // 指出外部模块，不会与库打包在一起
     external: [
-      // node-fetch is only used in node. Browsers have native "fetch".
-      'node-fetch',
       'crypto',
       'react',
       'react-dom',
+      'less',
       ...external,
     ],
+    // 拦截警告
     onwarn: warning => {
       let { code } = warning;
       if (code === 'CIRCULAR_DEPENDENCY' || code === 'CIRCULAR' ||
@@ -98,19 +113,21 @@ function config({ plugins = [], output = {}, external = [] }) {
 export default [
   config({
     output: {
+      esModule: false,
       format: 'umd',
-      name: 'react-vehicle-keyboard-js',
+      name: 'react-vehicle-keyboard',
       extend: true,
-      file: 'dist/react-vehicle-keyboard-js.js',
+      file: 'dist/react-vehicle-keyboard.js',
+      // exports: 'named' // 导出模式 named:导出多个东西 default: 仅仅导出一个东西
     }
   }),
   config({
     plugins: [minify()],
     output: {
       format: 'umd',
-      name: 'react-vehicle-keyboard-js',
+      name: 'react-vehicle-keyboard',
       extend: true,
-      file: 'dist/react-vehicle-keyboard-js.min.js',
+      file: 'dist/react-vehicle-keyboard.min.js'
     }
   })
 ];
