@@ -1,7 +1,7 @@
 {
   "name": "react-vehicle-keyboard",
   "version": "1.0.1",
-  "description": "",
+  "description": "H5-车牌号键盘组件-基于react",
   "main": "dist/react-vehicle-keyboard.js",
   "scripts": {
     "watch": "babel src --out-dir lib --watch",
@@ -40,8 +40,6 @@
     "less-plugin-clean-css": "^1.5.1",
     "miniprogram-api-typings": "^2.4.2-2",
     "mocha": "^6.1.4",
-    "react": "^15.x.x",
-    "react-dom": "^15.x.x",
     "rimraf": "^2.6.3",
     "rollup": "~0.58.2",
     "rollup-plugin-babel": "3",
@@ -52,6 +50,10 @@
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "~3.0.0"
+  },
+  "dependencies": {
+    "react": "^15.x.x",
+    "react-dom": "^15.x.x"
   },
   "peerDependencies": {
     "react": ">=15.0.0",

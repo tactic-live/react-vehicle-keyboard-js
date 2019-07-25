@@ -2,12 +2,21 @@
 
 react-vehicle-keyboard是一个用于移动端输入车牌号的键盘组件
 
-## Feature
+
++ [Features](#features)
++ [Installation](#installation)
+  + [npm](#npm)
+  + [yarn](#yarn)
++ [Peer dependencies](#peer-dependencies)
++ [Props](#props)
++ [Usage](#usage)
++ [Change log](#change-log)
+
+## Features
 * support h5
 
-## install
+## Installation
 
-## Getting started
 ### npm
 ```bash
 npm install react-vehicle-keyboard --save
@@ -18,7 +27,19 @@ npm install react-vehicle-keyboard --save
 yarn add react-vehicle-keyboard
 ```
 
-### Props
+## Peer dependencies
+react-vehicle-keyboard uses React`>=15.0.0`,React DOM `>=15.0.0` as peer dependencies.
+### npm
+```bash
+npm install --save react@15.x.x react-dom@15.x.x
+```
+
+### yarn
+```bash
+yarn add react@15.x.x react-dom@15.x.x
+```
+
+## Props
 Name|Type|Default|Description
 -|-|-|-
 show|Boolean|false|是否显示键盘
@@ -41,7 +62,7 @@ require('react-vehicle-keyboard/react-vehicle-keyboard.css')
 ...
 ```
 
-## Change Log
+## Change log
 
 ### 1.0.1
 change license to MIT

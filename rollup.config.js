@@ -35,7 +35,7 @@ function minify() {
 
 const babelOptions = {}
 
-function config({ input = '', plugins = [], output = {}, external = [] }) {
+function config({ plugins = [], output = {}, external = [] }) {
   return {
     // 入口
     input: 'src/index.js',
