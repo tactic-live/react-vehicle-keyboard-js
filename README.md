@@ -20,7 +20,7 @@ yarn add react-vehicle-keyboard
 
 ### Props
 Name|Type|Default|Description
--
+-|-|-|-
 show|Boolean|false|是否显示键盘
 type|Number|1|显示键盘的类型 1:省缩写键盘 2:字母和数字键盘
 disabledKyes|Array||不可用的键
