@@ -5,12 +5,12 @@ import Util from './util';
 // import './style.less';
 
 const VehicleKeyboard = ({
-  handleSelectKey,
+  onClick,
   show,
   type,
   carTxt,
   numTxt,
-  disabledKyes
+  disabledKeys
 }) => {
   const getClassName = () => {
     let cls = 'vehicle-keyboard';
@@ -33,15 +33,15 @@ const VehicleKeyboard = ({
         {
           vals.map((value, index) => {
             const key = `key_${index}`;
-            if (disabledKyes.length > 0 && (disabledKyes.includes(value) || disabledKyes.includes(parseInt(value, 10)))) {
+            if (disabledKeys.length > 0 && (disabledKeys.includes(value) || disabledKeys.includes(parseInt(value, 10)))) {
               return (<Key key={key} value={value} disabled="true" />);
             }
-            return (<Key key={key} value={value} btnClick={handleSelectKey} />);
+            return (<Key key={key} value={value} btnClick={onClick} />);
           })
         }
         <div className="btns-container">
-          <Key value="确定" btnClick={handleSelectKey} type="3" />
-          <Key value="删除" btnClick={handleSelectKey} type="2" />
+          <Key value="确定" btnClick={onClick} type="3" />
+          <Key value="删除" btnClick={onClick} type="2" />
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@ const VehicleKeyboard = ({
 
 VehicleKeyboard.defaultProps = {
   // 点击
-  handleSelectKey: () => { },
+  onClick: () => { },
   // 显示 false:隐藏 true:显示
   show: false,
   // 键盘类型  1:省 2:数字和字母
@@ -67,7 +67,7 @@ VehicleKeyboard.defaultProps = {
     'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
     'V', 'W', 'X', 'Y', 'Z'],
   // 不可用的键
-  disabledKyes: []
+  disabledKeys: []
 };
 
 export default VehicleKeyboard;

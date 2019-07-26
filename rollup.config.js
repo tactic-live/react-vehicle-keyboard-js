@@ -15,9 +15,9 @@
  * =============================================================================
  */
 import babel from 'rollup-plugin-babel'; // es6转es5
-import commonjs from 'rollup-plugin-commonjs';
-import json from 'rollup-plugin-json';
-import node from 'rollup-plugin-node-resolve';
+import node from 'rollup-plugin-node-resolve'; // node_modules - 解析commonjs
+import commonjs from 'rollup-plugin-commonjs'; // node_modules - 将commonjs转化为es6 module(import)
+import json from 'rollup-plugin-json'; // rollup读取json文件
 import sourcemaps from 'rollup-plugin-sourcemaps'; // 生成map文件
 import uglify from 'rollup-plugin-uglify'; // 压缩打包文件
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'; //peerdependence中依赖配置
@@ -113,7 +113,6 @@ function config({ plugins = [], output = {}, external = [] }) {
 export default [
   config({
     output: {
-      esModule: false,
       format: 'umd',
       name: 'react-vehicle-keyboard',
       extend: true,
