@@ -44,8 +44,8 @@ Name|Type|Default|Description
 -|-|-|-
 show|Boolean|false|是否显示键盘
 type|Number|1|显示键盘的类型 1:省缩写键盘 2:字母和数字键盘
-disabledKyes|Array||不可用的键
-handleSelectKey|Function||点击键的事件回调
+disabledKeys|Array||不可用的键
+onClick|Function||点击键的事件回调
 
 ## Usage
 ```bash
@@ -56,8 +56,8 @@ require('react-vehicle-keyboard/react-vehicle-keyboard.css')
   <Keyboard
     show={showKeyboard}
     type={keyboardType}
-    disabledKyes={disabledKeys}
-    handleSelectKey={this.keyboardClick}
+    disabledKeys={disabledKeys}
+    onClick={this.keyboardClick}
   />
 ...
 ```
