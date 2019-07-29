@@ -66,3 +66,6 @@ require('react-vehicle-keyboard/react-vehicle-keyboard.css')
 
 ### 1.0.1
 change license to MIT
+
+### 1.0.3
+替换关键字
