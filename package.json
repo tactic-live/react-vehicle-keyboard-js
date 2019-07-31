@@ -1,6 +1,6 @@
 {
   "name": "react-vehicle-keyboard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "H5-车牌号键盘组件-基于react",
   "main": "dist/react-vehicle-keyboard.js",
   "scripts": {
