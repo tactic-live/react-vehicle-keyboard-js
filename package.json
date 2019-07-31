@@ -7,6 +7,8 @@
     "watch": "babel src --out-dir lib --watch",
     "build": "rollup -c && npm run build-less && npm run build-less-min",
     "test": "yarn build && mocha",
+    "pub": "npm run build && npm publish",
+    "unpub": "npm unpublish .",
     "build-less": "lessc -js --source-map src/style/style.less dist/react-vehicle-keyboard.css",
     "build-less-min": "lessc -js --source-map --clean-css=\"compatibility=*\" src/style/style.less dist/react-vehicle-keyboard.min.css"
   },
