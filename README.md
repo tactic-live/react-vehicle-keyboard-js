@@ -44,8 +44,9 @@ Name|Type|Default|Description
 -|-|-|-
 show|Boolean|false|是否显示键盘
 type|Number|1|显示键盘的类型 1:省缩写键盘 2:字母和数字键盘
-disabledKeys|Array||不可用的键
-onClick|Function||点击键的事件回调
+disabledKeys|Array = ['沪','0',...]||不可用的键
+onClick|Function - (e,params)=>handle||点击键的事件回调
+keyClassName|Array - [{key:'沪',className:'key-hu'},...]||自定义键的className
 
 ## Usage
 ```bash
@@ -58,6 +59,7 @@ require('react-vehicle-keyboard/dist/react-vehicle-keyboard.css')
     type={keyboardType}
     disabledKeys={disabledKeys}
     onClick={this.keyboardClick}
+    keyClassName={keyClassName}
   />
 ...
 ```
@@ -72,3 +74,6 @@ change license to MIT
 
 ### 1.0.4
 增加发布代码
+
+### 1.0.5
+增加自定义键的className

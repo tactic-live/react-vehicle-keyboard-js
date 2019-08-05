@@ -1,26 +1,25 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
 // require('./style.less');
 
 const Key = ({
-  btnClick,
+  onClick,
   type,
   value,
   disabled,
+  keyCode,
   cls
 }) => {
 
   const getClassName = () => {
     let cls = '';
     switch (type) {
-      case '1':
-        cls = 'btnKey';
-        break;
-      case '2':
+      case 2:
         cls = 'btnClose';
         break;
-      case '3':
-        cls = 'btnOk';
+      case 3:
+        cls = 'btnConfirm';
         break;
       default:
         cls = '';
@@ -29,26 +28,20 @@ const Key = ({
     return cls;
   }
 
-  const onClick = (e) => {
-    let params = {};
+  const clickKey = (e) => {
+    let params = { keyCode };
     if (type !== 1) {
-      params = {
-        keyCode: type === 2 ? 8 : 13,
-        value: type === 2 ? '删除' : '确定'
-      };
+      Object.assign(params, { value: type === 2 ? '删除' : '确定' })
     } else {
-      params = {
-        keyCode: value.charCodeAt(0),
-        value
-      };
+      Object.assign(params, { value });
     }
-    btnClick && btnClick({ e, params });
+    onClick && onClick({ e, params });
   }
 
   return (
     <button
       className={`key ${getClassName()} ${cls}`}
-      onClick={onClick}
+      onClick={clickKey}
     >
       {value}
     </button>
@@ -57,15 +50,26 @@ const Key = ({
 
 Key.defaultProps = {
   // 点击事件
-  btnClick: () => { },
+  onClick: () => { },
   // 按钮类型 1:输入键 2:删除 3:确定
   type: 1,
+  // keyCode
+  keyCode: null,
   // 值
   value: '',
   // 禁用状态
   disabled: false,
   // 自定义类名
   cls: ''
+}
+
+Key.propTypes = {
+  onClick: PropTypes.func,
+  type: PropTypes.number,
+  keyCode: PropTypes.number,
+  value: PropTypes.string,
+  disabled: PropTypes.bool,
+  cls: PropTypes.string
 }
 
 export default Key;

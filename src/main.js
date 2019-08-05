@@ -23,6 +23,35 @@ const VehicleKeyboard = ({
     return cls;
   };
 
+  const getDeleteKey = (props) => {
+    const keyProps = Object.assign({}, props, { keyCode: 8, key: 8, type: 2 })
+    if (props.cls) {
+      Object.assign(keyProps, {
+        value: ''
+      });
+    }
+    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
+    return <Key {...keyProps} />;
+  }
+
+  const getConfirmKey = (props = {}) => {
+    const keyProps = Object.assign({}, props, { keyCode: 13, key: 13, type: 3 })
+    if (props.cls) {
+      Object.assign(keyProps, {
+        value: ''
+      });
+    }
+    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
+    return <Key {...keyProps} />;
+  }
+
+  const getKey = (props = {}) => {
+    const keyCode = props.value.charCodeAt(0);
+    const keyProps = Object.assign({}, props, { keyCode, key: keyCode })
+    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
+    return <Key {...keyProps} />;
+  }
+
   const getKeys = (vals = []) => {
     const result = {
       operateKeys: [],
@@ -30,42 +59,27 @@ const VehicleKeyboard = ({
     };
 
     vals.forEach((value) => {
-      const props = { value, btnClick: onClick };
+      const props = { value, onClick: onClick };
       if (disabledKeys.length > 0 && (disabledKeys.includes(value) || disabledKeys.includes(parseInt(value, 10)))) {
-        Object.assign(props, { disabled: 1 });
+        Object.assign(props, { disabled: true });
       }
       if (keyClassName.length > 0 && keyClassName.find(item => item.key === value)) {
         const item = keyClassName.find(item => item.key === value);
-        console.log('keyClassName-item', item);
         Object.assign(props, { cls: item.className });
       }
       if (value === '删除') {
-        Object.assign(props, {
-          keyCode: 8,
-          key: 8,
-          type: 2
-        });
-        result.operateKeys.push(<Key {...props} />);
+        result.operateKeys.push(getDeleteKey(props));
       } else if (value === '确定') {
-        Object.assign(props, {
-          keyCode: 13,
-          key: 13,
-          type: 3
-        });
-        result.operateKeys.push(<Key {...props} />);
+        result.operateKeys.push(getConfirmKey(props));
       } else {
-        const props = {
-          keyCode,
-          key: keyCode
-        };
-        result.keys.push(<Key {...props} />);
+        result.keys.push(getKey(props));
       }
     });
-    console.log('result', result);
+
     return result;
   }
 
-  const vals = type === 1 ? [...carTxt] : [...numTxt];
+  let vals = type === 1 ? [...carTxt] : [...numTxt];
   vals = [...vals, '删除', '确定'];
   const { operateKeys, keys } = getKeys(vals);
   return (
@@ -78,34 +92,10 @@ const VehicleKeyboard = ({
       <div className="content">
         {
           keys
-          // vals.map((value, index) => {
-          //   // const key = `key_${index}`;
-          //   const keyCode = value.charCodeAt(0);
-          //   const props = {
-          //     value,
-          //     keyCode,
-          //     key: keyCode
-          //   };
-          //   if (keyClassName && keyClassName.length > 0) {
-          //     const item = keyClassName.find(v => v.key === value);
-          //     if (item) Object.assign(props, { cls: item.className });
-          //   }
-
-          //   if (disabledKeys.length > 0 && (disabledKeys.includes(value) || disabledKeys.includes(parseInt(value, 10)))) {
-          //     Object.assign(props, { disabled: 1 });
-          //     // return (<Key cls={keyCls} key={key} value={value} disabled="true" />);
-          //     return (<Key {...props} />);
-          //   }
-          //   Object.assign(props, { btnClick });
-          //   // return (<Key cls={keyCls} key={key} value={value} btnClick={onClick} />);
-          //   return (<Key {...props} />);
-          // })
         }
         <div className="btns-container">
           {
             operateKeys
-            //   <Key cls={confirmKeyCls} value={!confirmKeyCls && "确定"} btnClick={onClick} type="3" />
-            // <Key cls={deleteKeyCls} value={!deleteKeyCls && "删除"} btnClick={onClick} type="2" />
           }
         </div>
       </div>
@@ -134,13 +124,7 @@ VehicleKeyboard.defaultProps = {
   // 不可用的键
   disabledKeys: [],
   // 自定义键样式类
-  keyClassName: [
-    // {
-    // 键
-    // key: '',
-    // className: '',
-    // }
-  ]
+  keyClassName: []
 };
 
 VehicleKeyboard.propTypes = {
