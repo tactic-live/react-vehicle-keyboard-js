@@ -6,7 +6,8 @@ const Key = ({
   btnClick,
   type,
   value,
-  disabled
+  disabled,
+  cls
 }) => {
 
   const getClassName = () => {
@@ -30,10 +31,10 @@ const Key = ({
 
   const onClick = (e) => {
     let params = {};
-    if (`${type}` !== '1') {
+    if (type !== 1) {
       params = {
-        keyCode: `${type}` === '2' ? 8 : 13,
-        value: `${type}` === '2' ? '删除' : '确定'
+        keyCode: type === 2 ? 8 : 13,
+        value: type === 2 ? '删除' : '确定'
       };
     } else {
       params = {
@@ -46,7 +47,7 @@ const Key = ({
 
   return (
     <button
-      className={`key ${getClassName()}`}
+      className={`key ${getClassName()} ${cls}`}
       onClick={onClick}
     >
       {value}
@@ -58,11 +59,13 @@ Key.defaultProps = {
   // 点击事件
   btnClick: () => { },
   // 按钮类型 1:输入键 2:删除 3:确定
-  type: '1',
+  type: 1,
   // 值
   value: '',
   // 禁用状态
-  disabled: false
+  disabled: false,
+  // 自定义类名
+  cls: ''
 }
 
 export default Key;

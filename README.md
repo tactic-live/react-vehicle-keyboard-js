@@ -50,7 +50,7 @@ onClick|Function||点击键的事件回调
 ## Usage
 ```bash
 import Keyboard from 'react-vehicle-keyboard';
-require('react-vehicle-keyboard/react-vehicle-keyboard.css')
+require('react-vehicle-keyboard/dist/react-vehicle-keyboard.css')
 
 ...
   <Keyboard

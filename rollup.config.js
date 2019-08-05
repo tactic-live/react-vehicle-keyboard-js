@@ -67,7 +67,6 @@ function config({ plugins = [], output = {}, external = [] }) {
               "modules": false
             }
           ],
-          "stage-0",
           "react"
         ]
       }),

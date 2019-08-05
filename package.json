@@ -35,7 +35,6 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "chai": "^4.2.0",
     "jsdom": "^15.1.0",
     "less": "^3.9.0",
@@ -54,6 +53,7 @@
     "rollup-plugin-uglify": "~3.0.0"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^15.x.x",
     "react-dom": "^15.x.x"
   },
