@@ -29,6 +29,9 @@ const Key = ({
   }
 
   const clickKey = (e) => {
+    if (disabled) {
+      return;
+    }
     let params = { keyCode };
     if (type !== 1) {
       Object.assign(params, { value: type === 2 ? '删除' : '确定' })

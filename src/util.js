@@ -1,19 +1,19 @@
 const env = require('amfe-env');
 
-const version = {
-  get width() {
+const utils = {
+  width() {
     return window.screen.width;
   },
-  get height() {
+  height() {
     return window.screen.height;
   },
-  get ios() {
+  ios() {
     return !!env.os.isIPhone;
   },
-  get iphoneX() {
-    if (this.ios) {
-      const min = Math.min(this.width, this.height);
-      const max = Math.max(this.width, this.height);
+  iphoneX() {
+    if (this.ios()) {
+      const min = Math.min(this.width(), this.height());
+      const max = Math.max(this.width(), this.height());
 
       // iphone x and iphone xs
       if (min === 375 && max === 812) {
@@ -27,4 +27,4 @@ const version = {
     return false;
   }
 };
-export default version;
+export default utils;

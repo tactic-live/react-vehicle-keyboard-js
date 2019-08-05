@@ -16,7 +16,7 @@ const VehicleKeyboard = ({
 }) => {
   const getClassName = () => {
     let cls = 'vehicle-keyboard';
-    if (Util.iPhoneX) cls += ' iphone-x';
+    if (Util.iphoneX()) cls += ' iphone-x';
     if (show) {
       cls += ' show';
     }
