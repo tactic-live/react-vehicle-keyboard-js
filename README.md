@@ -76,4 +76,4 @@ change license to MIT
 增加发布代码
 
 ### 1.0.5
-增加自定义键的className
+增加键的自定义className
