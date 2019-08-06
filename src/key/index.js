@@ -9,25 +9,32 @@ const Key = ({
   value,
   disabled,
   keyCode,
-  cls
+  className
 }) => {
-
+  /**
+   * 获取类名
+   */
   const getClassName = () => {
-    let cls = '';
+    let className = '';
     switch (type) {
       case 2:
-        cls = 'btnClose';
+        className = 'btnClose';
         break;
       case 3:
-        cls = 'btnConfirm';
+        className = 'btnConfirm';
         break;
       default:
-        cls = '';
+        className = '';
     }
-    if (disabled) cls += ' disabled';
-    return cls;
+    if (disabled) {
+      className += ' disabled';
+    }
+    return className;
   }
 
+  /**
+   * 点击键
+   */
   const clickKey = (e) => {
     if (disabled) {
       return;
@@ -43,7 +50,7 @@ const Key = ({
 
   return (
     <button
-      className={`key ${getClassName()} ${cls}`}
+      className={`key ${getClassName()} ${className}`}
       onClick={clickKey}
     >
       {value}
@@ -63,7 +70,7 @@ Key.defaultProps = {
   // 禁用状态
   disabled: false,
   // 自定义类名
-  cls: ''
+  className: ''
 }
 
 Key.propTypes = {
@@ -72,7 +79,7 @@ Key.propTypes = {
   keyCode: PropTypes.number,
   value: PropTypes.string,
   disabled: PropTypes.bool,
-  cls: PropTypes.string
+  className: PropTypes.string
 }
 
 export default Key;

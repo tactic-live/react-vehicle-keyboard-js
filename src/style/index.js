@@ -1,2 +1,1 @@
-// todo
 import './style.less';

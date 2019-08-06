@@ -47,6 +47,7 @@ type|Number|1|显示键盘的类型 1:省缩写 2:字母和数字
 disabledKeys|Array ['沪','0',...]||不可用的键
 onClick|Function (e,params)=>{}||点击键的事件回调
 keyClassName|Array [{key:'沪',className:'key-hu'},...]||自定义键的className
+className|String||自定义className
 
 ## Usage
 ```bash
@@ -60,6 +61,7 @@ require('react-vehicle-keyboard/dist/react-vehicle-keyboard.css');
     disabledKeys={disabledKeys}
     onClick={this.keyboardClick}
     keyClassName={keyClassName}
+    className={className}
   />
 ...
 ```
@@ -79,4 +81,4 @@ change license to MIT
 增加键的自定义className
 
 ### 1.0.6
-适配iphone-x
+支持自定义className

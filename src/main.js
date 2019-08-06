@@ -1,9 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Key from './key';
-import Util from './util';
 
-// import './style.less';
+/**
+ * 获取删除键
+ */
+const getDeleteKey = (props) => {
+  const keyProps = Object.assign({}, props, { keyCode: 8, key: 8, type: 2 })
+  if (props.className) {
+    Object.assign(keyProps, {
+      value: ''
+    });
+  }
+  Object.assign(keyProps, { className: `key_${keyProps.keyCode} ${props.className} ` })
+  return <Key {...keyProps} />;
+}
+
+/**
+ * 获取确认键
+ */
+const getConfirmKey = (props = {}) => {
+  const keyProps = Object.assign({}, props, { keyCode: 13, key: 13, type: 3 })
+  if (props.className) {
+    Object.assign(keyProps, {
+      value: ''
+    });
+  }
+  Object.assign(keyProps, { className: `key_${keyProps.keyCode} ${props.className} ` })
+  return <Key {...keyProps} />;
+}
+
+/**
+ * 获取键
+ */
+const getKey = (props = {}) => {
+  const keyCode = props.value.charCodeAt(0);
+  const keyProps = Object.assign({}, props, { keyCode, key: keyCode })
+  Object.assign(keyProps, { className: `key_${keyProps.keyCode} ${props.className} ` })
+  return <Key {...keyProps} />;
+}
 
 const VehicleKeyboard = ({
   onClick,
@@ -12,46 +47,27 @@ const VehicleKeyboard = ({
   carTxt,
   numTxt,
   disabledKeys,
-  keyClassName
+  keyClassName,
+  className
 }) => {
+
+  /**
+   * 获取类名
+   */
   const getClassName = () => {
     let cls = 'vehicle-keyboard';
-    if (Util.iphoneX()) cls += ' iphone-x';
+    if (className) {
+      cls += ` ${className}`;
+    }
     if (show) {
       cls += ' show';
     }
     return cls;
   };
 
-  const getDeleteKey = (props) => {
-    const keyProps = Object.assign({}, props, { keyCode: 8, key: 8, type: 2 })
-    if (props.cls) {
-      Object.assign(keyProps, {
-        value: ''
-      });
-    }
-    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
-    return <Key {...keyProps} />;
-  }
-
-  const getConfirmKey = (props = {}) => {
-    const keyProps = Object.assign({}, props, { keyCode: 13, key: 13, type: 3 })
-    if (props.cls) {
-      Object.assign(keyProps, {
-        value: ''
-      });
-    }
-    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
-    return <Key {...keyProps} />;
-  }
-
-  const getKey = (props = {}) => {
-    const keyCode = props.value.charCodeAt(0);
-    const keyProps = Object.assign({}, props, { keyCode, key: keyCode })
-    Object.assign(keyProps, { cls: `key_${keyProps.keyCode} ${props.cls} ` })
-    return <Key {...keyProps} />;
-  }
-
+  /**
+   * 获取所有键
+   */
   const getKeys = (vals = []) => {
     const result = {
       operateKeys: [],
@@ -65,7 +81,7 @@ const VehicleKeyboard = ({
       }
       if (keyClassName.length > 0 && keyClassName.find(item => item.key === value)) {
         const item = keyClassName.find(item => item.key === value);
-        Object.assign(props, { cls: item.className });
+        Object.assign(props, { className: item.className });
       }
       if (value === '删除') {
         result.operateKeys.push(getDeleteKey(props));
@@ -124,7 +140,9 @@ VehicleKeyboard.defaultProps = {
   // 不可用的键
   disabledKeys: [],
   // 自定义键样式类
-  keyClassName: []
+  keyClassName: [],
+  // 自定义键盘外部类
+  className: ''
 };
 
 VehicleKeyboard.propTypes = {
@@ -134,7 +152,8 @@ VehicleKeyboard.propTypes = {
   carTxt: PropTypes.array,
   numTxt: PropTypes.array,
   disabledKeys: PropTypes.array,
-  keyClassName: PropTypes.array
+  keyClassName: PropTypes.array,
+  className: PropTypes.string
 }
 
 export default VehicleKeyboard;
